@@ -88,6 +88,18 @@ def main():
         hero_x += hero_dir_x
         hero_y += hero_dir_y
 
+        if hero_x + hero_dir_x > 459:
+            hero_x = 459
+        if hero_x + hero_dir_x < 33:
+            hero_x = 33
+        if hero_y + hero_dir_y > 422:
+            hero_y = 422
+        if hero_y + hero_dir_y < 33:
+            hero_y = 33
+
+
+
+
         # Monster Movement
         game_monster.monster_random_movement()
         game_monster.monster_move()        
