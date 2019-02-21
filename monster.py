@@ -1,4 +1,6 @@
 import pygame
+import time
+import random
 
 def main():
     # Initialize pygame
@@ -29,6 +31,7 @@ def main():
     monster_y = 120
     monster_mv_x = 3
     monster_mv_y = 3
+    change_mv_cd = 60
 
     # While loop used to have the game continuously run
     stop_game = False
@@ -54,6 +57,21 @@ def main():
         pygame.display.update()
         
         # Monster Movement
+        
+        # If statement used to randomize the monster's movement
+        change_mv_cd -= 1
+        if change_mv_cd == 0:
+            change_mv_cd = 60
+            rand_direciton = random.randint(0,3)
+            if rand_direciton == 0: # Go North
+                monster_mv_y = -monster_mv_y
+            if rand_direciton == 1: # Go Right
+                monster_mv_x = -monster_mv_x
+            if rand_direciton == 2: # Go South
+                monster_mv_y = -monster_mv_y
+            if rand_direciton == 3: # Go Left
+                monster_mv_x = -monster_mv_x
+
         monster_x += monster_mv_x
         monster_y += monster_mv_y
 
@@ -63,7 +81,7 @@ def main():
             monster_mv_x = -monster_mv_x
         if monster_y + monster_mv_y > window_height - 58: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
             monster_mv_y = -monster_mv_y
-        if monster_y + monster_mv_y < 33: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
+        if monster_y + monster_mv_y < 33: # If the Monster's next move is past the trees (NORTH), go to the opposite direction
             monster_mv_y = -monster_mv_y
         
 
