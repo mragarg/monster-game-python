@@ -25,6 +25,11 @@ def main():
 
     # Game initialization
 
+    monster_x = 120
+    monster_y = 120
+    monster_mv = 5
+
+    # While loop used to have the game continuously run
     stop_game = False
     while not stop_game:
 
@@ -35,19 +40,22 @@ def main():
             if event.type == pygame.QUIT:
                 stop_game = True
 
-
         # Game logic
 
         # Uses the uploaded background image as the game background
         screen.blit(background_iamge, [0, 0])
-        # Uses the uploaded hero image and places it in the middle of the screen
+        # Uses the uploaded hero image and places it in the center of the screen
         screen.blit(hero_image, [256, 240])
         # Uses the uploaded monster image and places it top-left of the screen
-        screen.blit(monster_image, [120, 120])
+        screen.blit(monster_image, [monster_x, monster_y])
 
         # Game display
-
         pygame.display.update()
+        
+        # Monster Movement
+        monster_x += monster_mv
+
+        # Set the tick rate to 60 ms, which means the game runs at 60 FPS
         clock.tick(60)
 
     pygame.quit()
