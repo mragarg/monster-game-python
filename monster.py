@@ -4,8 +4,10 @@ def main():
     # Initialize pygame
     pygame.init()
 
-    # Importing background image
+    # Importing images
     background_iamge = pygame.image.load("./images/background.png")
+    hero_image = pygame.image.load("./images/hero.png")
+
 
     # Window size
     window_width = 512
@@ -28,7 +30,7 @@ def main():
         # Event is for user input such as keypress to clicks
         for event in pygame.event.get():
 
-            # Event handling
+            # Event that if user clicks exit
             if event.type == pygame.QUIT:
                 stop_game = True
 
@@ -37,6 +39,8 @@ def main():
 
         # Uses the uploaded background image as the game background
         screen.blit(background_iamge, [0, 0])
+        # Uses the uploaded hero image and places it in the middle of the screen
+        screen.blit(hero_image, [256, 240])
 
         # Game display
 
