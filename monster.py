@@ -3,7 +3,7 @@ import pygame
 def main():
     width = 500
     height = 500
-    blue_color = (97, 159, 182)
+    background_iamge = pygame.image.load("background.png")
 
     #initialize pygame
     pygame.init()
@@ -28,7 +28,7 @@ def main():
         # Game logic
 
         # Draw background
-        screen.fill(blue_color)
+        screen.fill(background_iamge)
 
         # Game display
 
