@@ -31,14 +31,14 @@ class Monster():
 
     # Function 'controls' the monsters movement. It creates a fence in where it can stay
     def monster_fence(self):
-        if self.x + self.dir_x > 459: # If the Monster's next move is past the trees (RIGHT), go to the opposite direction
+        if self.x + self.dir_x > 450: # If the Monster's next move is past the trees (RIGHT), go to the opposite direction
             self.x = 33
         if self.x + self.dir_x < 33: # If the Monster's next move is past the trees (LEFT), go to the opposite direction
-            self.x = 459
-        if self.y + self.dir_y > 422: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
+            self.x = 450
+        if self.y + self.dir_y > 415: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
             self.y = 33
         if self.y + self.dir_y < 33: # If the Monster's next move is past the trees (NORTH), go to the opposite direction
-            self.y = 422
+            self.y = 415
 
     # Function that is responsible for the monster's continuous movement
     def monster_move(self):

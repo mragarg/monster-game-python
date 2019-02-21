@@ -2,6 +2,7 @@ import pygame
 import time
 import random
 from monster import Monster
+from hero import Hero
 
 # Key Stroke Variables
 KEY_UP = 273
@@ -15,7 +16,6 @@ def main():
 
     # Importing images
     background_image = pygame.image.load("./images/background.png")
-    hero_image = pygame.image.load("./images/hero.png")
 
     # Window size
     window_width = 512
@@ -30,19 +30,12 @@ def main():
     # Calls the Clock object and sets it to variable clock (for shorthand purposes)
     clock = pygame.time.Clock()
 
-    ################################    HERO    ################################
-    hero_x = 256
-    hero_y = 240
-    hero_dir_x = 0
-    hero_dir_y = 0
-
-
 
     # Game initialization
 
     # Created a monster instance
     game_monster = Monster(120, 120, 3, 3)
-
+    game_hero = Hero(256, 240)
     # While loop used to have the game continuously run
     stop_game = False
     while not stop_game:
@@ -53,22 +46,22 @@ def main():
             ################################ HERO MOVEMENT ################################
             if event.type == pygame.KEYDOWN:
                 if event.key == KEY_DOWN:
-                    hero_dir_y = 3
+                    game_hero.dir_y = 3
                 elif event.key == KEY_UP:
-                    hero_dir_y = -3
+                    game_hero.dir_y = -3
                 elif event.key == KEY_LEFT:
-                    hero_dir_x = -3
+                    game_hero.dir_x = -3
                 elif event.key == KEY_RIGHT:
-                    hero_dir_x = 3
+                    game_hero.dir_x = 3
             if event.type == pygame.KEYUP:
                 if event.key == KEY_DOWN:
-                    hero_dir_y = 0
+                    game_hero.dir_y = 0
                 elif event.key == KEY_UP:
-                    hero_dir_y = 0
+                    game_hero.dir_y = 0
                 elif event.key == KEY_LEFT:
-                    hero_dir_x = 0
+                    game_hero.dir_x = 0
                 elif event.key == KEY_RIGHT:
-                    hero_dir_x = 0
+                    game_hero.dir_x = 0
 
             # Event that if user clicks exit
             if event.type == pygame.QUIT:
@@ -78,32 +71,22 @@ def main():
 
         # Renders background, monster, and hero image
         screen.blit(background_image, [0, 0])
-        screen.blit(hero_image, [hero_x, hero_y])
+        screen.blit(game_hero.hero_image, [game_hero.x, game_hero.y])
         screen.blit(game_monster.monster_image, [game_monster.x, game_monster.y])
 
-        # Game display
-        pygame.display.update()
-        
-        ################################ HERO MOVEMENT ################################
-        hero_x += hero_dir_x
-        hero_y += hero_dir_y
-
-        if hero_x + hero_dir_x > 459:
-            hero_x = 459
-        if hero_x + hero_dir_x < 33:
-            hero_x = 33
-        if hero_y + hero_dir_y > 422:
-            hero_y = 422
-        if hero_y + hero_dir_y < 33:
-            hero_y = 33
-
-
-
+        # Hero Movement
+        game_hero.hero_move()
+        game_hero.hero_fence()
 
         # Monster Movement
         game_monster.monster_random_movement()
         game_monster.monster_move()        
         game_monster.monster_fence()
+        
+        # Game display
+        pygame.display.update()
+        
+
 
         # Set the tick rate to 60 ms, which means the game runs at 60 FPS
         clock.tick(60)
