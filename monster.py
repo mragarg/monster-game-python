@@ -55,8 +55,11 @@ def main():
         # Monster Movement
         monster_x += monster_mv_x
 
-        if monster_x + monster_mv_x > window_width - 50: # If the Monster's next move is past the trees, go to the opposite direction
+        if monster_x + monster_mv_x > window_width - 53: # If the Monster's next move is past the trees (RIGHT), go to the opposite direction
             monster_mv_x = -monster_mv_x
+        if monster_x + monster_mv_x < 33: # If the Monster's next move is past the trees (LEFT), go to the opposite direction
+            monster_mv_x = -monster_mv_x
+        
 
         # Set the tick rate to 60 ms, which means the game runs at 60 FPS
         clock.tick(60)
