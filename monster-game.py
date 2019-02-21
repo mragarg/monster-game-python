@@ -1,16 +1,15 @@
 import pygame
 import time
 import random
+from monster import Monster
 
 def main():
     # Initialize pygame
     pygame.init()
 
     # Importing images
-    background_iamge = pygame.image.load("./images/background.png")
+    background_image = pygame.image.load("./images/background.png")
     hero_image = pygame.image.load("./images/hero.png")
-    monster_image = pygame.image.load("./images/monster.png")
-
 
     # Window size
     window_width = 512
@@ -27,11 +26,8 @@ def main():
 
     # Game initialization
 
-    monster_x = 120
-    monster_y = 120
-    monster_mv_x = 3
-    monster_mv_y = 3
-    change_mv_cd = 60
+    # Created a monster instance
+    game_monster = Monster(120, 120, 3, 3)
 
     # While loop used to have the game continuously run
     stop_game = False
@@ -46,44 +42,18 @@ def main():
 
         # Game logic
 
-        # Uses the uploaded background image as the game background
-        screen.blit(background_iamge, [0, 0])
-        # Uses the uploaded hero image and places it in the center of the screen
+        # Renders background, monster, and hero image
+        screen.blit(background_image, [0, 0])
         screen.blit(hero_image, [256, 240])
-        # Uses the uploaded monster image and places it top-left of the screen
-        screen.blit(monster_image, [monster_x, monster_y])
+        screen.blit(game_monster.monster_image, [game_monster.x, game_monster.y])
 
         # Game display
         pygame.display.update()
         
         # Monster Movement
-        
-        # If statement used to randomize the monster's movement
-        change_mv_cd -= 1
-        if change_mv_cd == 0:
-            change_mv_cd = 60
-            rand_direciton = random.randint(0,3)
-            if rand_direciton == 0: # Go North
-                monster_mv_y = -monster_mv_y
-            if rand_direciton == 1: # Go Right
-                monster_mv_x = -monster_mv_x
-            if rand_direciton == 2: # Go South
-                monster_mv_y = -monster_mv_y
-            if rand_direciton == 3: # Go Left
-                monster_mv_x = -monster_mv_x
-
-        monster_x += monster_mv_x
-        monster_y += monster_mv_y
-
-        if monster_x + monster_mv_x > window_width - 53: # If the Monster's next move is past the trees (RIGHT), go to the opposite direction
-            monster_mv_x = -monster_mv_x
-        if monster_x + monster_mv_x < 33: # If the Monster's next move is past the trees (LEFT), go to the opposite direction
-            monster_mv_x = -monster_mv_x
-        if monster_y + monster_mv_y > window_height - 58: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
-            monster_mv_y = -monster_mv_y
-        if monster_y + monster_mv_y < 33: # If the Monster's next move is past the trees (NORTH), go to the opposite direction
-            monster_mv_y = -monster_mv_y
-        
+        game_monster.monster_random_movement()
+        game_monster.monster_move()        
+        game_monster.monster_fence()
 
         # Set the tick rate to 60 ms, which means the game runs at 60 FPS
         clock.tick(60)
