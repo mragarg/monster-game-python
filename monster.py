@@ -2,6 +2,9 @@ import random
 import pygame
 
 class Monster():
+
+    # Import Monster image
+    monster_image = pygame.image.load("./images/monster.png")
     
     def __init__(self, x, y, dir_x, dir_y):
         self.x = x
@@ -9,9 +12,6 @@ class Monster():
         self.dir_x = dir_x
         self.dir_y = dir_y 
         self.change_mv_cd = 60
-
-    # Import Monster image
-    monster_image = pygame.image.load("./images/monster.png")
 
     # Function countdowns the time until it has to randomize the movement. 
     # When countdown is 0, it will randomly change direction
