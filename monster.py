@@ -7,6 +7,7 @@ def main():
     # Importing images
     background_iamge = pygame.image.load("./images/background.png")
     hero_image = pygame.image.load("./images/hero.png")
+    monster_image = pygame.image.load("./images/monster.png")
 
 
     # Window size
@@ -41,6 +42,8 @@ def main():
         screen.blit(background_iamge, [0, 0])
         # Uses the uploaded hero image and places it in the middle of the screen
         screen.blit(hero_image, [256, 240])
+        # Uses the uploaded monster image and places it top-left of the screen
+        screen.blit(monster_image, [120, 120])
 
         # Game display
 
