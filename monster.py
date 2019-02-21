@@ -54,14 +54,16 @@ def main():
         pygame.display.update()
         
         # Monster Movement
-        #monster_x += monster_mv_x
+        monster_x += monster_mv_x
         monster_y += monster_mv_y
 
         if monster_x + monster_mv_x > window_width - 53: # If the Monster's next move is past the trees (RIGHT), go to the opposite direction
             monster_mv_x = -monster_mv_x
         if monster_x + monster_mv_x < 33: # If the Monster's next move is past the trees (LEFT), go to the opposite direction
             monster_mv_x = -monster_mv_x
-        if monster_y + monster_mv_y > window_height - 55: # If the Monster's next move is past the trees (DOWN), go to the opposite direction
+        if monster_y + monster_mv_y > window_height - 58: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
+            monster_mv_y = -monster_mv_y
+        if monster_y + monster_mv_y < 33: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
             monster_mv_y = -monster_mv_y
         
 
