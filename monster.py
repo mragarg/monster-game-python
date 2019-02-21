@@ -27,7 +27,7 @@ def main():
 
     monster_x = 120
     monster_y = 120
-    monster_mv = 5
+    monster_mv_x = 3
 
     # While loop used to have the game continuously run
     stop_game = False
@@ -53,7 +53,10 @@ def main():
         pygame.display.update()
         
         # Monster Movement
-        monster_x += monster_mv
+        monster_x += monster_mv_x
+
+        if monster_x + monster_mv_x > window_width - 50: # If the Monster's next move is past the trees, go to the opposite direction
+            monster_mv_x = -monster_mv_x
 
         # Set the tick rate to 60 ms, which means the game runs at 60 FPS
         clock.tick(60)
