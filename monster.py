@@ -1,18 +1,15 @@
 import random
 import pygame
+from characters import Characters
 
-class Monster(pygame.sprite.Sprite):
+class Monster(Characters):
 
     # Import Monster image
     monster_image = pygame.image.load("./images/monster.png")
     
     # Initialize wih the starting speed and direction of the monster
     def __init__(self, x, y, dir_x, dir_y):
-        pygame.sprite.Sprite.__init__(self)
-        self.x = x
-        self.y = y
-        self.dir_x = dir_x
-        self.dir_y = dir_y 
+        Characters.__init__(self, x, y, dir_x, dir_y)
         self.change_mv_cd = 60
         self.image = pygame.image.load("./images/monster.png")
         self.rect = self.image.get_rect()
@@ -35,26 +32,6 @@ class Monster(pygame.sprite.Sprite):
                 self.dir_y = -self.dir_y
             if rand_direciton == 3: # Go Left
                 self.dir_x = -self.dir_x
-
-    # Function 'controls' the monsters movement. It creates a fence in where it can stay
-    def monster_fence(self):
-        if self.x + self.dir_x > 450: # If the Monster's next move is past the trees (RIGHT), go to the opposite direction
-            self.x = 33
-        if self.x + self.dir_x < 33: # If the Monster's next move is past the trees (LEFT), go to the opposite direction
-            self.x = 450
-        if self.y + self.dir_y > 415: # If the Monster's next move is past the trees (SOUTH), go to the opposite direction
-            self.y = 33
-        if self.y + self.dir_y < 33: # If the Monster's next move is past the trees (NORTH), go to the opposite direction
-            self.y = 415
-
-    # Function that is responsible for the monster's continuous movement
-    def monster_move(self):
-        self.x += self.dir_x
-        self.y += self.dir_y
-
-    # Function updates the rect.center of the current position (collision)
-    def rect_update(self):
-        self.rect.center = self.x, self.y
 
     # Function that updates the monster's attributes after collision
     def is_dead(self):

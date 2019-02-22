@@ -3,6 +3,7 @@ import time
 import random
 from monster import Monster
 from hero import Hero
+from characters import Characters
 
 # Key Stroke Variables
 KEY_UP = 273
@@ -92,14 +93,14 @@ def main():
         screen.blit(game_monster.image, [game_monster.x, game_monster.y])
 
         # Hero Movement
-        game_hero.hero_move()
-        game_hero.hero_fence()
+        game_hero.character_movement()
+        game_hero.character_fence(1)
         game_hero.rect_update()
 
         # Monster Movement
         game_monster.monster_random_movement()
-        game_monster.monster_move()        
-        game_monster.monster_fence()
+        game_monster.character_movement()        
+        game_monster.character_fence(2)
         game_monster.rect_update()
 
         # Sprite Collide
