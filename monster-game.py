@@ -12,22 +12,32 @@ KEY_LEFT = 276
 KEY_RIGHT = 275
 KEY_ENTER = 13
 
+# Other Variables
+level_count = 1
+bg_sound_path = "./sounds/music.wav"
+lose_sound_path = "./sounds/lose.wav"
+win_sound_path = "./sounds/win.wav"
+bg_image_path = "./images/background.png"
+window_width = 512
+window_height = 480
+
+def restart_level(monster, hero):
+    monster.monster_restart()
+    hero.hero_restart()   
+
 def main():
+
     # Initialize pygame
     pygame.init()
 
     # Importing image
-    background_image = pygame.image.load("./images/background.png")
+    background_image = pygame.image.load(bg_image_path)
     
     # Importing and Intialize Sound
     pygame.mixer.init()
-    bg_sound = pygame.mixer.Sound("./sounds/music.wav")
-    lose_sound = pygame.mixer.Sound("./sounds/lose.wav")
-    win_sound = pygame.mixer.Sound("./sounds/win.wav")
-
-    # Window size
-    window_width = 512
-    window_height = 480
+    bg_sound = pygame.mixer.Sound(bg_sound_path)
+    lose_sound = pygame.mixer.Sound(lose_sound_path)
+    win_sound = pygame.mixer.Sound(win_sound_path)
 
     # Set up the screen (drawing surface for the game)
     screen = pygame.display.set_mode((window_width, window_height))
@@ -39,10 +49,10 @@ def main():
     clock = pygame.time.Clock()
 
 
-    ########## Game initialization ##########
+    #################### Game initialization ####################
 
     # Created a monster instance
-    game_monster = Monster(120, 120, 1, 1)
+    game_monster = Monster(120, 120, 3, 3)
     game_hero = Hero(256, 240)
 
     # Sprite Groups
@@ -55,14 +65,14 @@ def main():
     # FPS settings
     FPS = 60
 
-    ########## While loop used to have the game continuously run ##########
+    #################### While loop used to have the game continuously run ####################
     stop_game = False
     while not stop_game:
 
         # Event is for user input such as keypress to clicks
         for event in pygame.event.get():
 
-            # Hero Key Strokes Movement
+            #Key Strokes Movement (Hero Movement and Enter Key)
             if event.type == pygame.KEYDOWN:
                 if event.key == KEY_DOWN:
                     game_hero.dir_y = 3
@@ -74,6 +84,8 @@ def main():
                     game_hero.dir_x = 3
                 elif event.key == KEY_ENTER:
                     print("Enter Works")
+                    restart_level(game_monster, game_hero)
+                    monster_group.add(game_monster)
             if event.type == pygame.KEYUP:
                 if event.key == KEY_DOWN:
                     game_hero.dir_y = 0

@@ -13,3 +13,9 @@ class Hero(Characters):
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
         self.dead = False
+    
+    def hero_restart(self):
+        self.x = 256
+        self.y = 240
+        self.dir_x = 0
+        self.dir_y = 0

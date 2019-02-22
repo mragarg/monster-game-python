@@ -43,3 +43,11 @@ class Monster(Characters):
         self.y = 150
         self.dir_x = 0 
         self.dir_y = 0
+
+    def monster_restart(self):
+        self.image = pygame.image.load("./images/monster.png")
+        self.x = random.randint(40, 440)
+        self.y = random.randint(40, 400)
+        self.dir_x = 3
+        self.dir_y = 3
+        self.dead = False
