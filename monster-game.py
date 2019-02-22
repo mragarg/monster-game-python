@@ -84,13 +84,17 @@ def main():
             #Key Strokes Movement (Hero Movement and Enter Key)
             if event.type == pygame.KEYDOWN:
                 if event.key == KEY_DOWN:
-                    game_hero.dir_y = 3
+                    if game_hero.dead == False:
+                        game_hero.dir_y = 3
                 elif event.key == KEY_UP:
-                    game_hero.dir_y = -3
+                    if game_hero.dead == False:
+                        game_hero.dir_y = -3
                 elif event.key == KEY_LEFT:
-                    game_hero.dir_x = -3
+                    if game_hero.dead == False:
+                        game_hero.dir_x = -3
                 elif event.key == KEY_RIGHT:
-                    game_hero.dir_x = 3
+                    if game_hero.dead == False:
+                        game_hero.dir_x = 3
                 elif event.key == KEY_ENTER:
                     print("Enter Works")
                     restart_level(game_monster, game_hero, game_goblin1)
