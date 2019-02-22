@@ -9,6 +9,7 @@ class Characters(pygame.sprite.Sprite):
         self.y = y
         self.dir_x = dir_x
         self.dir_y = dir_y
+        self.dead = False
     
     # Function that controls the character's movement
     def character_movement(self):

@@ -11,10 +11,9 @@ class Monster(Characters):
     def __init__(self, x, y, dir_x, dir_y):
         Characters.__init__(self, x, y, dir_x, dir_y)
         self.change_mv_cd = 60
-        self.image = pygame.image.load("./images/monster.png")
+        self.image = pygame.image.load("./images/monster.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = self.x, self.y
-        self.dead = False
 
 
     # Function countdowns the time until it has to randomize the movement. 
@@ -45,7 +44,7 @@ class Monster(Characters):
         self.dir_y = 0
 
     def monster_restart(self):
-        self.image = pygame.image.load("./images/monster.png")
+        self.image = pygame.image.load("./images/monster.png").convert_alpha()
         self.x = random.randint(40, 440)
         self.y = random.randint(40, 400)
         self.dir_x = 3
