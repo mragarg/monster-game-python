@@ -1,17 +1,24 @@
 import random
 import pygame
 
-class Monster():
+class Monster(pygame.sprite.Sprite):
 
     # Import Monster image
     monster_image = pygame.image.load("./images/monster.png")
     
+    # Initialize wih the starting speed and direction of the monster
     def __init__(self, x, y, dir_x, dir_y):
+        pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.dir_x = dir_x
         self.dir_y = dir_y 
         self.change_mv_cd = 60
+        self.image = pygame.image.load("./images/monster.png")
+        self.rect = self.image.get_rect()
+        self.rect.center = self.x, self.y
+        self.dead = False
+
 
     # Function countdowns the time until it has to randomize the movement. 
     # When countdown is 0, it will randomly change direction
@@ -44,3 +51,18 @@ class Monster():
     def monster_move(self):
         self.x += self.dir_x
         self.y += self.dir_y
+
+    # Function updates the rect.center of the current position (collision)
+    def rect_update(self):
+        self.rect.center = self.x, self.y
+
+    # Function that updates the monster's attributes after collision
+    def is_dead(self):
+        self.dead = True
+        font = pygame.font.Font(None, 60)
+        text = font.render("You Win!", True, (0, 0, 0))
+        self.image = text
+        self.x = 172
+        self.y = 220
+        self.dir_x = 0 
+        self.dir_y = 0

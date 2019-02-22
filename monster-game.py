@@ -14,8 +14,14 @@ def main():
     # Initialize pygame
     pygame.init()
 
-    # Importing images
+    # Importing image
     background_image = pygame.image.load("./images/background.png")
+    
+    # Importing and Intialize Sound
+    pygame.mixer.init()
+    bg_sound = pygame.mixer.Sound("./sounds/music.wav")
+    lose_sound = pygame.mixer.Sound("./sounds/lose.wav")
+    win_sound = pygame.mixer.Sound("./sounds/win.wav")
 
     # Window size
     window_width = 512
@@ -31,19 +37,30 @@ def main():
     clock = pygame.time.Clock()
 
 
-    # Game initialization
+    ########## Game initialization ##########
 
     # Created a monster instance
-    game_monster = Monster(120, 120, 3, 3)
+    game_monster = Monster(120, 120, 1, 1)
     game_hero = Hero(256, 240)
-    # While loop used to have the game continuously run
+
+    # Sprite Groups
+    monster_group = pygame.sprite.Group()
+    monster_group.add(game_monster)
+
+    hero_group = pygame.sprite.Group()
+    hero_group.add(game_hero)
+
+    # FPS settings
+    FPS = 60
+
+    ########## While loop used to have the game continuously run ##########
     stop_game = False
     while not stop_game:
 
         # Event is for user input such as keypress to clicks
         for event in pygame.event.get():
 
-            ################################ HERO MOVEMENT ################################
+            # Hero Key Strokes Movement
             if event.type == pygame.KEYDOWN:
                 if event.key == KEY_DOWN:
                     game_hero.dir_y = 3
@@ -71,25 +88,35 @@ def main():
 
         # Renders background, monster, and hero image
         screen.blit(background_image, [0, 0])
-        screen.blit(game_hero.hero_image, [game_hero.x, game_hero.y])
-        screen.blit(game_monster.monster_image, [game_monster.x, game_monster.y])
+        screen.blit(game_hero.image, [game_hero.x, game_hero.y])
+        screen.blit(game_monster.image, [game_monster.x, game_monster.y])
 
         # Hero Movement
         game_hero.hero_move()
         game_hero.hero_fence()
+        game_hero.rect_update()
 
         # Monster Movement
         game_monster.monster_random_movement()
         game_monster.monster_move()        
         game_monster.monster_fence()
-        
+        game_monster.rect_update()
+
+        # Sprite Collide
+        collide = pygame.sprite.spritecollide(game_hero, monster_group, True)
+
+        if collide:
+            game_hero.x = 230
+            game_hero.y = 200
+            game_monster.is_dead()
+            win_sound.play()
+
+
         # Game display
         pygame.display.update()
-        
-
 
         # Set the tick rate to 60 ms, which means the game runs at 60 FPS
-        clock.tick(60)
+        clock.tick(FPS)
 
     pygame.quit()
 
