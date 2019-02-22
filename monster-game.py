@@ -71,6 +71,9 @@ def main():
     # FPS settings
     FPS = 60
 
+    # Music Start
+    bg_sound.play()
+
     #################### While loop used to have the game continuously run ####################
     stop_game = False
     while not stop_game:
@@ -93,6 +96,7 @@ def main():
                     restart_level(game_monster, game_hero, game_goblin1)
                     monster_group.add(game_monster)
                     goblin_group.add(game_goblin1)
+                    bg_sound.play()
             if event.type == pygame.KEYUP:
                 if event.key == KEY_DOWN:
                     game_hero.dir_y = 0
@@ -137,15 +141,20 @@ def main():
         collide_goblin = pygame.sprite.spritecollide(game_hero, goblin_group, True)
 
         if collide_monster:
+            bg_sound.stop()
             game_hero.x = 230
             game_hero.y = 200
             game_monster.is_dead()
-            game_goblin1.is_dead()
             win_sound.play()
 
         if collide_goblin:
+            bg_sound.stop()
+            game_monster.x = 500
+            game_monster.y = 500
+            game_hero.hero_dead()
             lose_sound.play()
-            print("Still Working")
+            game_monster.dir_x = 0
+            game_monster.dir_y = 0
 
         if game_monster.dead == True:
             font = pygame.font.Font(None, 20)
@@ -153,6 +162,15 @@ def main():
             screen.blit(play_again_text, [172, 220])
             game_hero.x = 236
             game_hero.y = 185
+
+        if game_hero.dead == True:
+            font = pygame.font.Font(None, 20)
+            play_again_text = font.render("Press `Enter` to Play Again!", True, (0, 0, 0))
+            screen.blit(play_again_text, [172, 220])
+            game_goblin1.x = 236
+            game_goblin1.y = 185
+            game_hero.dir_x = 0 
+            game_hero.dir_y = 0
 
         # Game display
         pygame.display.update()
