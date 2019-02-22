@@ -10,6 +10,7 @@ KEY_UP = 273
 KEY_DOWN = 274
 KEY_LEFT = 276
 KEY_RIGHT = 275
+KEY_ENTER = 13
 
 def main():
     # Initialize pygame
@@ -71,6 +72,8 @@ def main():
                     game_hero.dir_x = -3
                 elif event.key == KEY_RIGHT:
                     game_hero.dir_x = 3
+                elif event.key == KEY_ENTER:
+                    print("Enter Works")
             if event.type == pygame.KEYUP:
                 if event.key == KEY_DOWN:
                     game_hero.dir_y = 0
@@ -112,6 +115,12 @@ def main():
             game_monster.is_dead()
             win_sound.play()
 
+        if game_monster.dead == True:
+            font = pygame.font.Font(None, 20)
+            play_again_text = font.render("Press `Enter` to Play Again!", True, (0, 0, 0))
+            screen.blit(play_again_text, [172, 220])
+            game_hero.x = 236
+            game_hero.y = 185
 
         # Game display
         pygame.display.update()

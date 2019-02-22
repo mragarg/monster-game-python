@@ -40,6 +40,6 @@ class Monster(Characters):
         text = font.render("You Win!", True, (0, 0, 0))
         self.image = text
         self.x = 172
-        self.y = 220
+        self.y = 150
         self.dir_x = 0 
         self.dir_y = 0
